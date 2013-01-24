@@ -22,6 +22,10 @@ set incsearch           "検索打ち込み中にも検索
 set hlsearch            "検索打ち込み中にも検索
 set showcmd             "実行中のコマンド表示
 syntax on               "ソースコードをハイライト
+set mouse=a             "マウス操作
+set ttymouse=xterm2     "screenでも使えるように
+"set cursorline         "カーソルの行にラインを表示
+"set cursorcolumn       "カーソルの列にラインを表示
 " see also http://www15.ocn.ne.jp/~tusr/vim/options.html
  
 "使いやすいキー配置に
