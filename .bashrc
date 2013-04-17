@@ -21,12 +21,12 @@ function mcd {
 export PAGER=lv
 export GIT_PAGER='lv -Ou8 -c'
 
-# bash$B$G(Bscreen$B$NC<Kv4V(Bhistory$B$r6&M-$9$k(B
+# bashでscreenの端末間historyを共有する
 function share_history { 
-    history -a  # .bash_history$B$KA02s%3%^%s%I$r(B1$B9TDI5-(B
-    history -c  # $BC<Kv%m!<%+%k$NMzNr$r0lC6>C5n(B
-    history -r  # .bash_history$B$+$iMzNr$rFI$_9~$_D>$9(B
+    history -a  # .bash_historyに前回コマンドを1行追記
+    history -c  # 端末ローカルの履歴を一旦消去
+    history -r  # .bash_historyから履歴を読み込み直す
 }
-PROMPT_COMMAND='share_history' # $B>e5-4X?t$r%W%m%s%W%HKh$K<+F0<B;\(B
-shopt -u histappend  # .bash_history$BDI5-%b!<%I$OITMW$J$N$G(BOFF$B$K(B
-export HISTSIZE=9999 # $BMzNr$N(BMAX$BJ]B8?t$r;XDj(B
+PROMPT_COMMAND='share_history' # 上記関数をプロンプト毎に自動実施
+shopt -u histappend  # .bash_history追記モードは不要なのでOFFに
+export HISTSIZE=9999 # 履歴のMAX保存数を指定
