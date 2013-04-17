@@ -7,11 +7,11 @@ fi
 
 # User specific aliases and functions
 alias vi=vim
-alias ls='ls -F --color'
+alias ls='ls -F --color' # --color is -G for MacOSX
 # cd and ls
 function cdls() {
     \cd $1;
-    ls -F --color;
+    ls -F --color; # --color is -G for MacOSX
 }
 alias cd=cdls
 function mcd {
