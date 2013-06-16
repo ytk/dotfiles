@@ -1,19 +1,19 @@
-vbell off # ¥Ó¥¸¥å¥¢¥ë¥Ù¥ë¤òÌµ¸ú
+vbell off # ãƒ“ã‚¸ãƒ¥ã‚¢ãƒ«ãƒ™ãƒ«ã‚’ç„¡åŠ¹
 shell bash
-autodetach on # ¼«Æ°¤Ç¥Ç¥¿¥Ã¥Á¤¹¤ë
+autodetach on # è‡ªå‹•ã§ãƒ‡ã‚¿ãƒƒãƒã™ã‚‹
 startup_message off
 bind w windowlist -b
-startup_message off # µ¯Æ°²èÌÌOFF
+startup_message off # èµ·å‹•ç”»é¢OFF
 
-# ¥¹¥Æ¡¼¥¿¥¹¹Ô¤ÎÀßÄê
+# ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹è¡Œã®è¨­å®š
 hardstatus alwayslastline "[%02c] %`%-w%{=b bw}%n %t%{-}%+w"
 # #caption always "%{= wg} %-w%{=bu dr}%n %t%{-}%+w %= %{=b wb}%y/%m/%d %{=b wm}%c"
 
-## Ctrl-a U ÀÚ¤êÂØ¤¨
+## Ctrl-a U åˆ‡ã‚Šæ›¿ãˆ
 bind U eval "encoding UTF-8"
 bind E eval "encoding eucJP"
 bind S eval "encoding SJIS"
 bind J eval "encoding jis"
 
-# ¥¹¥¯¥í¡¼¥ë¥Ğ¥Ã¥Õ¥¡¥µ¥¤¥º
+# ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
 scrollback 4000
