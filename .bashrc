@@ -23,6 +23,8 @@ alias cd=cdls
 function mcd {
     mkdir -p "$1" && cd "$1";
 }
+alias ll='ls -l'
+alias la='ls -a'
 
 export PAGER=lv
 export GIT_PAGER='lv -Ou8 -c'
