@@ -1,0 +1,9 @@
+[color]
+    ui = true
+[core]
+    pager = lv -c
+[alias]
+    co = checkout
+    st = status
+    ba = branch -a
+    rv = remote -v
