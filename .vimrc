@@ -33,6 +33,7 @@ nnoremap k gk
 nnoremap j gj
 noremap z $
 noremap 0 _
+inoremap <C-j> <Esc>
  
 " UTF-8の□や○でカーソル位置がずれないようにする
 if exists("&ambiwidth")
