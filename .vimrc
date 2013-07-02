@@ -34,7 +34,14 @@ nnoremap j gj
 noremap z $
 noremap 0 _
 inoremap <C-j> <Esc>
- 
+
+"Perl開発用
+augroup filetypedetect
+autocmd! BufNewFile,BufRead *.t setf perl
+autocmd! BufNewFile,BufRead *.psgi setf perl
+autocmd! BufNewFile,BufRead *.tt setf tt2html
+augroup END
+
 " UTF-8の□や○でカーソル位置がずれないようにする
 if exists("&ambiwidth")
     set ambiwidth=double
