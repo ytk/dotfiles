@@ -17,7 +17,7 @@ set listchars=tab:>-    " Tabを明示的に表示
 set list                " Tabや改行を可視化
 set shellslash          " パスのセパレータをバックスラッシュからスラッシュに（Windows専用）
 set ruler               " ルーラーを表示
-set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P " ステータス行に文字コードと改行コードを表示
+"set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P " ステータス行に文字コードと改行コードを表示
 set incsearch           "検索打ち込み中にも検索
 set hlsearch            "検索打ち込み中にも検索
 set showcmd             "実行中のコマンド表示
@@ -81,3 +81,46 @@ if has('iconv')
     unlet s:enc_euc
     unlet s:enc_jis
 endif
+
+" NeoBundle
+" 事前に NeoBundle をインストール
+" $ mkdir -p ~/.vim/bundle
+" $ git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+if has('vim_starting')
+    set nocompatible               " Be iMproved
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" My Bundles here:
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'itchyny/lightline.vim'
+
+filetype plugin indent on
+
+" Installation check.
+NeoBundleCheck
+" /NeoBundle
+
+" lightline.vim
+let g:lightline = {
+    \ 'colorscheme': 'landscape'
+    \ }
+
+" neocomplcache.vim
+let g:neocomplcache_enable_at_startup = 1 " vimと同時起動
+let g:neocomplcache_enable_smart_case = 1 " 大文字入力まで大文字小文字を無視
+let g:neocomplcache_enable_underbar_completion = 1 " _区切りの補完を有効化
