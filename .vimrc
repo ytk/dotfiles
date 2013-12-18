@@ -31,16 +31,25 @@ set wildmode=list:full " 補完動作の設定(複数のマッチがあるとき
 "==============================
 "   キーバインディング
 "==============================
-" ノーマルモード
+"               normal insert command visual
+" map/noremap     @      -       -      @
+" nmap/nnoremap   @      -       -      -
+" imap/inoremap   -      @       -      -
+" cmap/cnoremap   -      -       @      - 
+" vmap/vnoremap   -      -       -      @
+" map!/noremap!   -      @       @      -
+"==============================
+" カーソルを表示行単位で移動
 nnoremap k      gk
 nnoremap j      gj
 nnoremap <Up>   gk
 nnoremap <Down> gj
-" ノーマルモード、ビジュアルモード
+" 行頭、行末の移動を 0, z で
 noremap z $
 noremap 0 _
-" インサートモード
+" Ctrl-j を Esc 扱いに
 inoremap <C-j> <Esc>
+vnoremap <C-j> <Esc>
 
 "==============================
 "   ファイルタイプ設定
