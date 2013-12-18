@@ -31,15 +31,15 @@ set wildmode=list:full " 補完動作の設定(複数のマッチがあるとき
 "==============================
 "   キーバインディング
 "==============================
-" カーソルを表示行単位で移動
+" ノーマルモード
 nnoremap k      gk
 nnoremap j      gj
 nnoremap <Up>   gk
 nnoremap <Down> gj
-" 行頭と行末の移動を 0 と z で
+" ノーマルモード、ビジュアルモード
 noremap z $
 noremap 0 _
-" 挿入モード時は Ctrl-j でも Esc 可能に
+" インサートモード
 inoremap <C-j> <Esc>
 
 "==============================
