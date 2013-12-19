@@ -51,7 +51,7 @@ noremap 0 _
 " Ctrl-j を Esc 扱いに
 inoremap <C-j> <Esc>
 noremap  <C-j> <Esc>
-" インサートモードでは Ctrl-hjkl で移動
+" インサートモードでも Ctrl-hjkl で移動
 "inoremap <C-h> <Esc>ha
 "inoremap <C-j> <Esc>ja
 "inoremap <C-k> <Esc>ka
@@ -66,7 +66,7 @@ nnoremap <silent> <Space>vs :<C-u>source $MYVIMRC<CR>
 "==============================
 "   ファイルタイプ設定
 "==============================
-" .psgi, .t を perl 扱いに
+" .psgi .t を perl 扱いに
 augroup filetypedetect
 autocmd! BufNewFile,BufRead *.psgi setf perl
 autocmd! BufNewFile,BufRead *.t    setf perl
@@ -139,12 +139,15 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'vim-perl/vim-perl'
+NeoBundle 'vim-jp/vimdoc-ja'
 filetype plugin indent on
 NeoBundleCheck
 
 "==============================
 "   NeoBundle Plugin 設定
 "==============================
+" vimdoc-ja
+set helplang=ja
 " lightline.vim
 if !has('gui_running')
     set t_Co=256
