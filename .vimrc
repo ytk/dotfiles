@@ -54,6 +54,9 @@ vnoremap <C-j> <Esc>
 " Tab でインデント整形
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
+" .vimrc の編集と再読み込み
+nnoremap <silent> <Space>ve :edit $MYVIMRC<CR>
+nnoremap <silent> <Space>vs :source $MYVIMRC<CR>
 
 "==============================
 "   ファイルタイプ設定
@@ -114,7 +117,7 @@ endif
 " $ mkdir -p ~/.vim/bundle
 " $ git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 if has('vim_starting')
-    set nocompatible               " Be iMproved
+    set nocompatible
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 call neobundle#rc(expand('~/.vim/bundle/'))
@@ -139,27 +142,66 @@ NeoBundleCheck
 "   NeoBundle Plugin 設定
 "==============================
 " lightline.vim
-let g:lightline = {
-    \ 'colorscheme': 'jellybeans',
-    \ 'component_function': {
-    \   'filename': 'MyFilename',
-    \ }
-    \ }
 if !has('gui_running')
     set t_Co=256
 endif
-" ステータス行のファイル名をフルパスに
-function! MyFilename()
-    if '' != expand('%:p')
-        if stridx(expand('%:p'), expand('~')) == 0
-            return substitute(expand('%:p'), expand('~'), '~', '')
-        else
-            return substitute(expand('%:p'))
-        endif
-    else
-        return '[No Name]'
-    endif
+let g:lightline = {
+    \ 'colorscheme': 'jellybeans',
+    \ 'component_function': {
+    \     'modified': 'MyModified',
+    \     'readonly': 'MyReadonly',
+    \     'fugitive': 'MyFugitive',
+    \     'filename': 'MyFilename',
+    \     'fileformat': 'MyFileformat',
+    \     'filetype': 'MyFiletype',
+    \     'fileencoding': 'MyFileencoding',
+    \     'mode': 'MyMode'
+    \ }
+    \ }
+
+function! MyModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
+
+function! MyReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+endfunction
+
+function! MyFilename()
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFugitive()
+  try
+    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+      return fugitive#head()
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! MyFileencoding()
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! MyMode()
+  return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
 " neocomplcache.vim
 let g:neocomplcache_enable_at_startup          = 1 " vimと同時起動
 let g:neocomplcache_enable_smart_case          = 1 " 大文字入力まで大文字小文字を無視
