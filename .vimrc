@@ -51,6 +51,11 @@ noremap 0 _
 " Ctrl-j を Esc 扱いに
 inoremap <C-j> <Esc>
 noremap  <C-j> <Esc>
+" インサートモードでは Ctrl-hjkl で移動
+"inoremap <C-h> <Esc>ha
+"inoremap <C-j> <Esc>ja
+"inoremap <C-k> <Esc>ka
+"inoremap <C-l> <Esc>la
 " Tab でインデント整形
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
@@ -63,9 +68,9 @@ nnoremap <silent> <Space>vs :<C-u>source $MYVIMRC<CR>
 "==============================
 " .t, .psgi, .tt を perl 扱いに
 augroup filetypedetect
-autocmd! BufNewFile,BufRead *.t setf perl
+autocmd! BufNewFile,BufRead *.tt   setf tt2html
+autocmd! BufNewFile,BufRead *.t    setf perl
 autocmd! BufNewFile,BufRead *.psgi setf perl
-autocmd! BufNewFile,BufRead *.tt setf tt2html
 augroup END
 
 "==============================
