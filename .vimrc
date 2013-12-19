@@ -66,11 +66,10 @@ nnoremap <silent> <Space>vs :<C-u>source $MYVIMRC<CR>
 "==============================
 "   ファイルタイプ設定
 "==============================
-" .t, .psgi, .tt を perl 扱いに
+" .psgi, .t を perl 扱いに
 augroup filetypedetect
-autocmd! BufNewFile,BufRead *.tt   setf tt2html
-autocmd! BufNewFile,BufRead *.t    setf perl
 autocmd! BufNewFile,BufRead *.psgi setf perl
+autocmd! BufNewFile,BufRead *.t    setf perl
 augroup END
 
 "==============================
