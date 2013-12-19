@@ -51,6 +51,9 @@ noremap 0 _
 " Ctrl-j を Esc 扱いに
 inoremap <C-j> <Esc>
 vnoremap <C-j> <Esc>
+" Tab でインデント整形
+vnoremap <Tab>   >gv
+vnoremap <S-Tab> <gv
 
 "==============================
 "   ファイルタイプ設定
