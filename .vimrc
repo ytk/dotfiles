@@ -1,6 +1,7 @@
 "==============================
 "   共通設定
 "==============================
+colorscheme desert     " カラースキーマ
 syntax on              " シンタックスハイライト
 set background=dark    " vim に背景色の明るさを教える
 set backspace=2        " バックスペースキーの動作を決定する
@@ -44,7 +45,7 @@ nnoremap k      gk
 nnoremap j      gj
 nnoremap <Up>   gk
 nnoremap <Down> gj
-" 行頭、行末の移動を 0, z で
+" 行頭と行末の移動を 0 と z で
 noremap z $
 noremap 0 _
 " Ctrl-j を Esc 扱いに
@@ -64,11 +65,11 @@ augroup END
 "==============================
 "   文字コード設定
 "==============================
-" UTF-8の□や○でカーソル位置がずれないようにする
+" UTF-8 の□や○でカーソル位置がずれないようにする
 if exists("&ambiwidth")
     set ambiwidth=double
 endif
-"文字コード自動判別
+" 文字コード自動判別
 if &encoding !=# 'utf-8'
     set encoding=japan
 endif
@@ -76,12 +77,12 @@ set fileencoding=japan
 if has('iconv')
     let s:enc_euc = 'euc-jp'
     let s:enc_jis = 'iso-2022-jp'
-    " iconv が JISX0213 に対応しているかをチェック
+    " iconvが JISX0213 に対応しているかをチェック
     if iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
         let s:enc_euc = 'euc-jisx0213'
         let s:enc_jis = 'iso-2022-jp-3'
     endif
-    " fileencodingsを構築
+    " fileencodings を構築
     if &encoding ==# 'utf-8'
         let s:fileencodings_default = &fileencodings
         let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
@@ -110,7 +111,7 @@ endif
 " $ mkdir -p ~/.vim/bundle
 " $ git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 if has('vim_starting')
-    set nocompatible
+    set nocompatible               " Be iMproved
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 call neobundle#rc(expand('~/.vim/bundle/'))
@@ -127,6 +128,7 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'vim-perl/vim-perl'
 filetype plugin indent on
 NeoBundleCheck
 
@@ -135,9 +137,27 @@ NeoBundleCheck
 "==============================
 " lightline.vim
 let g:lightline = {
-    \ 'colorscheme': 'landscape'
+    \ 'colorscheme': 'jellybeans',
+    \ 'component_function': {
+    \   'filename': 'MyFilename',
     \ }
+    \ }
+if !has('gui_running')
+    set t_Co=256
+endif
+" ステータス行のファイル名をフルパスに
+function! MyFilename()
+    if '' != expand('%:p')
+        if stridx(expand('%:p'), expand('~')) == 0
+            return substitute(expand('%:p'), expand('~'), '~', '')
+        else
+            return substitute(expand('%:p'))
+        endif
+    else
+        return '[No Name]'
+    endif
+endfunction
 " neocomplcache.vim
 let g:neocomplcache_enable_at_startup          = 1 " vimと同時起動
 let g:neocomplcache_enable_smart_case          = 1 " 大文字入力まで大文字小文字を無視
-let g:neocomplcache_enable_underbar_completion = 1 " _区切りの補完を有効化
+let g:neocomplcache_enable_underbar_completion = 1 " アンダーバー区切りの補完を有効化
