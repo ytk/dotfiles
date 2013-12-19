@@ -50,7 +50,7 @@ noremap z $
 noremap 0 _
 " Ctrl-j を Esc 扱いに
 inoremap <C-j> <Esc>
-vnoremap <C-j> <Esc>
+nnoremap <C-j> <Esc>
 " Tab でインデント整形
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
@@ -172,7 +172,7 @@ function! MyFilename()
         \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
         \  &ft == 'unite' ? unite#get_status_string() :
         \  &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ '' != expand('%:p:~') ? expand('%:p:~') : '[No Name]') .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
 
