@@ -55,8 +55,8 @@ vnoremap <C-j> <Esc>
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
 " .vimrc の編集と再読み込み
-nnoremap <silent> <Space>ve :edit $MYVIMRC<CR>
-nnoremap <silent> <Space>vs :source $MYVIMRC<CR>
+nnoremap <silent> <Space>ve :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> <Space>vs :<C-u>source $MYVIMRC<CR>
 
 "==============================
 "   ファイルタイプ設定
