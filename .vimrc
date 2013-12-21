@@ -132,6 +132,8 @@ set tabstop=4          " タブが対応するスペースの数
 set ttymouse=xterm2    " ターミナルでマウスを使う設定
 set wildmenu           " 補完候補を表示する
 set wildmode=list:full " 補完動作の設定(複数のマッチがあるときは全てのマッチを羅列し、最初のマッチを補完する)
+" 行番号の色変更
+highlight LineNr ctermfg=darkgray
 
 "==============================
 "   キーバインディング
@@ -171,10 +173,10 @@ nnoremap <silent> <Space>ve :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> <Space>vs :<C-u>source $MYVIMRC<CR>
 " ペーストモード切り替え
 nnoremap <silent> <Space>p :<C-u>set paste!<CR>
-" vim-gitgutter で git diff 表示
+" vim-gitgutter: git diff 表示
 "nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
 "nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
-" vim-operator-surround でクォートなどを補完(with vim-operator-user)
+" vim-operator-surround: クォートなどを補完(with vim-operator-user)
 map <silent>sa <Plug>(operator-surround-append)
 map <silent>sd <Plug>(operator-surround-delete)
 map <silent>sr <Plug>(operator-surround-replace)
