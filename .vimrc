@@ -27,6 +27,8 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'vim-perl/vim-perl'
 NeoBundle 'rhysd/accelerated-jk'
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'kana/vim-operator-user'
+NeoBundle 'rhysd/vim-operator-surround'
 filetype plugin indent on
 NeoBundleCheck
 "==============================
@@ -172,6 +174,10 @@ nnoremap <silent> <Space>p :<C-u>set paste!<CR>
 " vim-gitgutter で git diff 表示
 nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
+" vim-operator-surround powered by vim-operator-user
+map <silent>sa <Plug>(operator-surround-append)
+map <silent>sd <Plug>(operator-surround-delete)
+map <silent>sr <Plug>(operator-surround-replace)
 
 "==============================
 "   Perl 編集設定
