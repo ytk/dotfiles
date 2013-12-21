@@ -26,7 +26,7 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'vim-perl/vim-perl'
 NeoBundle 'rhysd/accelerated-jk'
-NeoBundle 'airblade/vim-gitgutter'
+"NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'rhysd/vim-operator-surround'
 filetype plugin indent on
@@ -172,8 +172,8 @@ nnoremap <silent> <Space>vs :<C-u>source $MYVIMRC<CR>
 " ペーストモード切り替え
 nnoremap <silent> <Space>p :<C-u>set paste!<CR>
 " vim-gitgutter で git diff 表示
-nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
-nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
+"nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
+"nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
 " vim-operator-surround でクォートなどを補完(with vim-operator-user)
 map <silent>sa <Plug>(operator-surround-append)
 map <silent>sd <Plug>(operator-surround-delete)
@@ -183,8 +183,6 @@ inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 "==============================
 "   Perl 編集設定
-"==============================
-" See Also: http://perl-users.jp/articles/advent-calendar/2012/casual/13
 "==============================
 " .psgi, .t を perl 扱いに
 augroup filetypedetect
