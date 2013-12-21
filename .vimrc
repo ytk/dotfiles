@@ -25,9 +25,10 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'vim-perl/vim-perl'
+NeoBundle 'rhysd/accelerated-jk'
+NeoBundle 'airblade/vim-gitgutter'
 filetype plugin indent on
 NeoBundleCheck
-
 "==============================
 "   NeoBundle Plugin 設定
 "==============================
@@ -141,13 +142,13 @@ set wildmode=list:full " 補完動作の設定(複数のマッチがあるとき
 " vmap/vnoremap   -      -       -      @
 " map!/noremap!   -      @       @      -
 "==============================
-" カーソル上下移動を表示行単位で
-nnoremap k      gk
-nnoremap j      gj
-nnoremap gk     k
-nnoremap gj     j
-nnoremap <Up>   gk
-nnoremap <Down> gj
+" カーソル上下移動を表示行単位で(更に連続したら加速)
+nmap k      <Plug>(accelerated_jk_gk)
+nmap j      <Plug>(accelerated_jk_gj)
+nmap <Up>   <Plug>(accelerated_jk_gk)
+nmap <Down> <Plug>(accelerated_jk_gj)
+nnoremap gk k
+nnoremap gj j
 " 行頭と行末の移動
 noremap z $
 noremap 0 ^
@@ -168,15 +169,25 @@ nnoremap <silent> <Space>ve :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> <Space>vs :<C-u>source $MYVIMRC<CR>
 " ペーストモード切り替え
 nnoremap <silent> <Space>p :<C-u>set paste!<CR>
+" vim-gitgutter で git diff 表示
+nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
+nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
 
 "==============================
 "   Perl 編集設定
 "==============================
+" See Also: http://perl-users.jp/articles/advent-calendar/2012/casual/13
+"==============================
 " .psgi, .t を perl 扱いに
 augroup filetypedetect
-autocmd! BufNewFile,BufRead *.psgi setf perl
-autocmd! BufNewFile,BufRead *.t    setf perl
+autocmd! BufNewFile,BufRead cpanfile setf perl
+autocmd! BufNewFile,BufRead *.psgi   setf perl
+autocmd! BufNewFile,BufRead *.t      setf perl
 augroup END
+if executable('perltidy')
+    nnoremap ,pt <Esc>:%! perltidy -se<CR>
+    vnoremap ,pt <Esc>:'<,'>! perltidy -se<CR>
+endif
 " 保存時にコードチェック
 "augroup perlsyntaxcheck
 "autocmd! BufWrite *.pl w !perl -Ilib -wc
