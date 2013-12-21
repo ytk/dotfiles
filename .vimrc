@@ -174,10 +174,12 @@ nnoremap <silent> <Space>p :<C-u>set paste!<CR>
 " vim-gitgutter で git diff 表示
 nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
-" vim-operator-surround powered by vim-operator-user
+" vim-operator-surround でクォートなどを補完(with vim-operator-user)
 map <silent>sa <Plug>(operator-surround-append)
 map <silent>sd <Plug>(operator-surround-delete)
 map <silent>sr <Plug>(operator-surround-replace)
+" neocomplcache: Tabでも候補選択
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 "==============================
 "   Perl 編集設定
