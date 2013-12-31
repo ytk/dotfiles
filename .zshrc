@@ -1,4 +1,11 @@
-# TODO: git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+#==============================
+# SETUP oh-my-zsh:
+#   1. Clone the repository
+#       git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+#   2. Set zsh as your default shell:
+#       chsh -s /bin/zsh
+#   3. Start / restart zsh
+#==============================
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
@@ -51,32 +58,12 @@ plugins=(git brew osx mysql perl)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+#==============================
+#   User configuration
+#==============================
 
+# 環境変数
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-
-
-
-
-## Environment variable configuration
-##
-## LANG
-##
 export LANG=ja_JP.UTF-8
 case ${UID} in
 0)
@@ -84,55 +71,31 @@ case ${UID} in
     ;;
 esac
 
-#uto change directory
-#
-setopt auto_cd
+# zsh設定
+setopt auto_cd     # ディレクトリ名だけでも cd
+setopt auto_pushd  # cd と同時に pushd (cd -[tab] で履歴
+setopt correct     # コマンドが間違っている場合に指摘
+setopt list_packed # 補完候補をコンパクトに表示
+setopt nolistbeep  # 補完候補表示時などにビープ音を鳴らさない
 
-# auto directory pushd that you can get dirs list by cd -[tab]
-#
-setopt auto_pushd
-
-# command correct edition before each completion attempt
-#
-setopt correct
-
-# compacked complete list display
-#
-setopt list_packed
-
-# no beep sound when complete list displayed
-#
-setopt nolistbeep
-
-# Keybind configuration
-#
-# emacs like keybind (e.x. Ctrl-a goes to head of a line and Ctrl-e goes 
-#   to end of it)
-#
-#bindkey -v
-
-# historical backward/forward search with linehead string binded to ^P/^N
-#
+# 履歴検索機能のショートカット設定
+# コマンド履歴の検索はCtrl-P/N、複数行の編集は矢印
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
-## Command history configuration
-#
+# コマンド履歴設定
 HISTFILE=~/.zsh_history
 HISTSIZE=50000
 SAVEHIST=50000
-setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data
+setopt hist_ignore_dups # コマンドを重複して記録しない
+setopt share_history    # コマンド履歴の共有
 
-## Alias configuration
-#
-# expand aliases before completing
-#
-setopt complete_aliases # aliased ls needs if file/dir completions work
-
+# エイリアス設定
+setopt complete_aliases # エイリアスでも補完
+# ls
 case "${OSTYPE}" in
 freebsd*|darwin*)
   alias ls="ls -FGw"
@@ -141,11 +104,11 @@ linux*)
   alias ls="ls -F --color"
   ;;
 esac
-
 alias ll="ls -l"
 alias la="ls -a"
+# cd と同時に ls
+function cd() {builtin cd $@ && ls}
 
-## Completion configuration
-#
+# 補完の有効化
 autoload -U compinit
 compinit
