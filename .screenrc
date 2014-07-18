@@ -16,4 +16,4 @@ bind S eval "encoding SJIS"
 bind J eval "encoding jis"
 
 # スクロールバッファサイズ
-scrollback 10000
+scrollback 100000

@@ -200,3 +200,25 @@ endif
 "augroup perlsyntaxcheck
 "autocmd! BufWrite *.pl w !perl -Ilib -wc
 "augroup END
+
+"==============================
+"   Perl で vimscript のサンプル
+"==============================
+func! ToHankaku() range
+  let str = getline(a:firstline, a:lastline)
+perl << EOF
+use utf8;
+use Encode;
+my $text = decode_utf8(VIM::Eval('str'));
+my $firstline = VIM::Eval('a:firstline');
+my @list = ();
+for my $str (split /\n/, $text) {
+  $str =~ tr/０-９ａ-ｚＡ-Ｚ/0-9a-zA-Z/;
+  push @list, $str;
+}
+$main::curbuf->Set($firstline, @list);
+EOF
+execute "normal " . a:lastline . "gg"
+endf
+vnoremap <silent> <Space>ha :call ToHankaku()<cr>
+nnoremap <silent> <Space>ha :call ToHankaku()<cr>
