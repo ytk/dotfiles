@@ -7,3 +7,4 @@
     st = status
     ba = branch -a
     rv = remote -v
+    fa = fetch --all --prune
