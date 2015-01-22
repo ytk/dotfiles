@@ -29,6 +29,10 @@ alias la='ls -la'
 export PAGER=lv
 export GIT_PAGER='lv -Ou8 -c'
 
+# ssh Keychain
+#keychain /path/to/ssh-key >/dev/null 2>/dev/null
+#source $HOME/.keychain/$HOSTNAME-sh
+
 # bash で screen の端末間 history を共有する
 function share_history { 
     history -a  # .bash_history に前回コマンドを1行追記

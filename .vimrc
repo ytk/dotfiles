@@ -132,6 +132,7 @@ set tabstop=4          " タブが対応するスペースの数
 set ttymouse=xterm2    " ターミナルでマウスを使う設定
 set wildmenu           " 補完候補を表示する
 set wildmode=list:full " 補完動作の設定(複数のマッチがあるときは全てのマッチを羅列し、最初のマッチを補完する)
+set matchpairs+=<:>    " 「%」のマッチ対象に<, >を追加
 " 行番号の色変更
 highlight LineNr ctermfg=darkgray
 
