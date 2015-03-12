@@ -95,6 +95,19 @@ function! MyMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
+" unite.vim
+let g:unite_enable_start_insert        = 1  " insert modeで開始
+let g:unite_source_history_yank_enable = 1  " history/yankの有効化
+let g:unite_enable_split_vertically    = 1  " 縦分割で開く
+let g:unite_winwidth                   = 40 " 横幅40で開く
+call unite#custom#profile('source/buffer', 'context.ignorecase', 1) " 大文字小文字を区別しない
+call unite#custom#profile('source/buffer', 'context.smartcase', 1)  " 大文字小文字を区別しない
+if executable('ag') " unite grep に ag(The Silver Searcher) を使う
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+
 " neocomplcache.vim
 let g:neocomplcache_enable_at_startup          = 1 " vimと同時起動
 let g:neocomplcache_enable_smart_case          = 1 " 大文字入力まで大文字小文字を無視
@@ -183,6 +196,13 @@ map <silent>sd <Plug>(operator-surround-delete)
 map <silent>sr <Plug>(operator-surround-replace)
 " neocomplcache: Tabでも候補選択
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" unite.vim
+nnoremap [unite]   <Nop>
+nmap     <Space>u [unite]
+nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
+nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
+nnoremap <silent> [unite]g :<C-u>Unite<Space>grep:. -buffer-name=search-buffer<CR>
+nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
 
 "==============================
 "   Perl 編集設定
