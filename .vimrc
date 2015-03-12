@@ -26,7 +26,6 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'vim-perl/vim-perl'
-"NeoBundle 'rhysd/accelerated-jk'
 "NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'rhysd/vim-operator-surround'
@@ -148,13 +147,13 @@ highlight LineNr ctermfg=darkgray
 " vmap/vnoremap   -      -       -      @
 " map!/noremap!   -      @       @      -
 "==============================
-" カーソル上下移動を表示行単位で(更に連続したら加速)
-nmap k      <Plug>(accelerated_jk_gk)
-nmap j      <Plug>(accelerated_jk_gj)
-nmap <Up>   <Plug>(accelerated_jk_gk)
-nmap <Down> <Plug>(accelerated_jk_gj)
-nnoremap gk k
-nnoremap gj j
+" カーソル上下移動を表示行単位で
+noremap k      gk
+noremap j      gj
+noremap <Up>   gk
+noremap <Down> gj
+noremap gk k
+noremap gj j
 " 行頭と行末の移動
 noremap z $
 noremap 0 ^
@@ -162,7 +161,7 @@ noremap ^ 0
 " Ctrl-j を Esc 扱いに
 inoremap <C-j> <Esc>
 noremap  <C-j> <Esc>
-" インサートモードでは Ctrl-hjkl で移動
+" インサートモードでは Ctrl-hjkl で移動(Ctrl-j を Esc にしているのでコメントアウト
 "inoremap <C-h> <Esc>ha
 "inoremap <C-j> <Esc>ja
 "inoremap <C-k> <Esc>ka
