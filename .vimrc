@@ -98,8 +98,8 @@ endfunction
 " unite.vim
 let g:unite_enable_start_insert        = 1  " insert modeで開始
 let g:unite_source_history_yank_enable = 1  " history/yankの有効化
-let g:unite_enable_split_vertically    = 1  " 縦分割で開く
-let g:unite_winwidth                   = 40 " 横幅40で開く
+"let g:unite_enable_split_vertically    = 1  " 縦分割で開く
+"let g:unite_winwidth                   = 40 " 横幅40で開く
 call unite#custom#profile('source/buffer', 'context.ignorecase', 1) " 大文字小文字を区別しない
 call unite#custom#profile('source/buffer', 'context.smartcase', 1)  " 大文字小文字を区別しない
 if executable('ag') " unite grep に ag(The Silver Searcher) を使う
