@@ -11,7 +11,6 @@ if has('vim_starting')
 endif
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-call neobundle#end()
 " Plugins
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'Shougo/vimproc', {
@@ -29,6 +28,7 @@ NeoBundle 'vim-perl/vim-perl'
 "NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'rhysd/vim-operator-surround'
+call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 "==============================
