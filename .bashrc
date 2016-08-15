@@ -46,3 +46,6 @@ export HISTSIZE=9999 # 履歴のMAX保存数を指定
 
 # history にコマンド実行時刻を記録する
 HISTTIMEFORMAT='%Y-%m-%dT%T%z '
+
+# 無用な画面停止を解除
+stty stop undef
