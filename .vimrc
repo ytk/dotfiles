@@ -187,6 +187,8 @@ nnoremap <silent> <Space>ve :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> <Space>vs :<C-u>source $MYVIMRC<CR>
 " ペーストモード切り替え
 nnoremap <silent> <Space>p :<C-u>set paste!<CR>
+" 行番号表示切り替え
+nnoremap <silent> <Space>n :<C-u>set number!<CR>
 " vim-gitgutter: git diff 表示
 "nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
 "nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
