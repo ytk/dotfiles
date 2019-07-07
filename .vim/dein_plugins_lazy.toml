@@ -1,0 +1,28 @@
+[[plugins]]
+repo = 'cespare/vim-toml' 
+on_ft = 'toml'
+
+# lua が入っているなら deoplete にする
+[[plugins]]
+repo = 'Shougo/neocomplcache'
+on_i = 1
+hook_source = '''
+    let g:neocomplcache_enable_at_startup          = 1 " vimと同時起動
+    let g:neocomplcache_enable_smart_case          = 1 " 大文字入力まで大文字小文字を無視
+    let g:neocomplcache_enable_underbar_completion = 1 " アンダーバー区切りの補完を有効化
+    inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>" " タブで候補選択
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+hook_source = '''
+    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+    smap <C-k> <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k> <Plug>(neosnippet_expand_target)
+    if has('conceal')
+        set conceallevel=2 concealcursor=niv
+    endif
+'''
+on_i  = 1
+on_ft = ['snippet']
+depends = ['neosnippet-snippets']
