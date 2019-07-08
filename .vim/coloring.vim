@@ -4,5 +4,8 @@
 "====================
 colorscheme desert " カラースキーマ
 syntax on          " シンタックスハイライト
-" 行番号の色変更
+
+" 行番号の色変更 (カラースキーマの後に定義)
 highlight LineNr ctermfg=darkgray
+highlight CursorLineNr cterm=bold ctermfg=white ctermbg=darkgray
+highlight clear CursorLine
