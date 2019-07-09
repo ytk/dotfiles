@@ -1,82 +1,50 @@
-#==============================
-# SETUP oh-my-zsh:
-#   1. Clone the repository
-#       git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-#   2. Set zsh as your default shell:
-#       chsh -s /bin/zsh
-#   3. Start / restart zsh
-#==============================
+#
+# zplug
+#
 
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+# zplug がなければインストール後 zsh を再起動
+if [ ! -e "${HOME}/.zplug/init.zsh" ]; then
+    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+fi
+source ${HOME}/.zplug/init.zsh
+# ここに入れたいプラグインを書いていく(gitのパスで)
+zplug 'zsh-users/zsh-completions'
+zplug 'zsh-users/zsh-syntax-highlighting'
+zplug 'zsh-users/zsh-autosuggestions'
+# プラグインがまだインストールされてないならインストールするか聞く
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+# .zplug 以下にパスを通す。プラグイン読み込み
+zplug load --verbose
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="gianu"
+# Ctrl+D でログアウトしない
+setopt IGNOREEOF
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# パスを追加したい場合
+export PATH="$HOME/bin:$PATH"
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+# 色指定を可能に
+autoload -Uz colors
+colors
 
-# Uncomment this to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+# 補完
+autoload -Uz compinit
+compinit
 
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
+# viキーバインド
+#bindkey -v
 
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment following line if you want to  shown in the command execution time stamp 
-# in the history command output. The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|
-# yyyy-mm-dd
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git brew osx mysql perl)
-
-source $ZSH/oh-my-zsh.sh
-
-#==============================
-#   User configuration
-#==============================
-
-# 環境変数
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-export LANG=ja_JP.UTF-8
-case ${UID} in
-0)
-    LANG=C
-    ;;
-esac
-
-# zsh設定
-setopt auto_cd     # ディレクトリ名だけでも cd
-setopt auto_pushd  # cd と同時に pushd (cd -[tab] で履歴
-setopt correct     # コマンドが間違っている場合に指摘
-setopt list_packed # 補完候補をコンパクトに表示
-setopt nolistbeep  # 補完候補表示時などにビープ音を鳴らさない
+# 他のターミナルとヒストリーを共有
+setopt share_history
+setopt histignorealldups # history のコマンド重複をなくす
+setopt extended_history # history に時刻表示
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
 
 # 履歴検索機能のショートカット設定
 # コマンド履歴の検索はCtrl-P/N、複数行の編集は矢印
@@ -86,29 +54,69 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
-# コマンド履歴設定
-HISTFILE=~/.zsh_history
-HISTSIZE=50000
-SAVEHIST=50000
-setopt hist_ignore_dups # コマンドを重複して記録しない
-setopt share_history    # コマンド履歴の共有
+# cdコマンドを省略して、ディレクトリ名のみの入力で移動
+setopt auto_cd
 
-# エイリアス設定
+# 自動でpushdを実行
+setopt auto_pushd
+
+# pushdから重複を削除
+setopt pushd_ignore_dups
+
+# コマンドミスを修正
+setopt correct
+
+setopt list_packed # 補完候補をコンパクトに表示
+setopt nolistbeep  # 補完候補表示時などにビープ音を鳴らさない
+
+# Ctrl+sのロック, Ctrl+qのロック解除を無効にする
+setopt no_flow_control
+
+# 色見本
+# for c in {000..255}; do echo -n "\e[38;5;${c}m $c" ; [ $(($c%16)) -eq 15 ] && echo;done;echo
+
+# VCSの情報を取得するzsh関数
+autoload -Uz vcs_info
+
+# PROMPT変数内で変数参照
+setopt prompt_subst
+
+zstyle ':vcs_info:*' formats " %F{200}%c%u(%r:%b)%f"  # 通常
+zstyle ':vcs_info:*' actionformats '[%b|%a]'        # rebase 途中,merge コンフリクト等 formats 外の表示
+zstyle ':vcs_info:git:*' check-for-changes true     # formats 設定項目で %c,%u が使用可
+zstyle ':vcs_info:git:*' stagedstr   "%F{202}!"   # commit されていないファイルがある
+zstyle ':vcs_info:git:*' unstagedstr "%F{196}+" # add されていないファイルがある
+
+# %b ブランチ情報
+# %a アクション名(mergeなど)
+# %c changes
+# %u uncommit
+
+# プロンプト表示直前に vcs_info 呼び出し
+precmd () { vcs_info }
+
+# プロンプト
+PROMPT='%F{255}[%f%F{245}%n@%m%f %F{255}%c${vcs_info_msg_0_}]%f %F{220}%#%f '
+RPROMPT='%F{245}%~ (%*)%f'
+
+# alias
 setopt complete_aliases # エイリアスでも補完
-# ls
-case "${OSTYPE}" in
-freebsd*|darwin*)
-  alias ls="ls -FGw"
-  ;;
-linux*)
-  alias ls="ls -F --color"
-  ;;
-esac
-alias ll="ls -l"
-alias la="ls -a"
-# cd と同時に ls
-function cd() {builtin cd $@ && ls}
+alias ll='ls -lh'
+alias la='ls -lha'
+alias relogin='exec $SHELL -l'
+alias vi='vim'
+alias vz='vim ~/.zshrc'
 
-# 補完の有効化
-autoload -U compinit
-compinit
+# OS 別の設定
+case ${OSTYPE} in
+    darwin*)
+        #Mac用の設定
+        export CLICOLOR=1
+        alias ls='ls -G -F'
+        ;;
+    *)
+        alias ls='ls -F --color=auto'
+        ;;
+esac
+# cd と同時に ls
+chpwd() { ls }
