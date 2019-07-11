@@ -1,10 +1,14 @@
-[color]
-    ui = true
 [core]
     pager = lv -c
+    editor = vim
+[pager]
+    branch = false
+[color]
+    ui = true
 [alias]
     co = checkout
     st = status
     ba = branch -a
+    bd = branch -D
     rv = remote -v
     fa = fetch --all --prune
