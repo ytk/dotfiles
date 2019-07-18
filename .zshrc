@@ -120,3 +120,7 @@ case ${OSTYPE} in
 esac
 # cd と同時に ls
 chpwd() { ls }
+
+# EDITOR が vim だと vim モードになってしまうようなので指定
+# https://web-salad.hateblo.jp/entry/2014/12/07/090000
+bindkey -e
